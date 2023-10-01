@@ -1,0 +1,70 @@
+/* top-navbar.css */
+.top-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #090a31;
+    color: #fff;
+    padding: 10px 20px;
+  }
+  
+  .left-icons {
+    display: flex;
+    align-items: center;
+  }
+  
+  .icon {
+    margin-right: 10px;
+  }
+  
+  .user-name {
+    font-weight: bold;
+  }
+  
+  .right-icons {
+    display: flex;
+  }
+  
+  .icon-container {
+    position: relative;
+  }
+  
+  .sort-popup {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #090a31;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+  }
+  
+  .sort-popup div {
+    cursor: pointer;
+    padding: 5px 0;
+    font-size: 16px; /* Adjust font size for options */
+  }
+  
+  /* Media query for responsiveness */
+  @media (max-width: 768px) {
+    .top-navbar {
+      justify-content: space-between; /* Adjust alignment for smaller screens */
+      padding: 10px; /* Reduce padding for smaller screens */
+    }
+  
+    .left-icons {
+      margin-right: auto; /* Push left icons to the left */
+    }
+  
+    .right-icons {
+      display: flex;
+      align-items: center; /* Center items vertically */
+    }
+  
+    .icon-container {
+      margin-left: 10px; /* Add some space between icons and the sort dropdown */
+    }
+  }
+  
