@@ -20,18 +20,27 @@ const TaskList = () => {
     const storedTasks = localStorage.getItem('tasks');
     console.log(storedTasks);
     if (storedTasks) {
-        var oldTasks = [...tasks];
+        // var oldTasks = [...tasks];
+
         var updatedTasks=JSON.parse(storedTasks);
-        updatedTasks.forEach((t)=>{
-            oldTasks.push(t);
-        })
-        console.log(updatedTasks);
-      setTasks(oldTasks);
-      console.log(oldTasks);
+        
+        setTasks([...tasks,...updatedTasks]);
+        
+      console.log("this is : "+tasks);
     }
   };
 
+  // const loadTasksFromLocalStorage = () => {
+  //   const storedTasks = localStorage.getItem('tasks');
+  //   if (storedTasks) {
+  //     const updatedTasks = JSON.parse(storedTasks);
+  //     setTasks(updatedTasks);
+  //     console.log(tasks);
+  //   }
+  // };
+
   const saveTasksToLocalStorage = () => {
+       console.log(`saving tasks to local storage`);
     localStorage.setItem('tasks', JSON.stringify(tasks));
   };
 
@@ -41,15 +50,15 @@ const TaskList = () => {
          text: taskInput, 
          completed: false ,
          timeAdded: Date.now(),
-    }]);
+    }])
       setTaskInput('');
+      // saveTasksToLocalStorage();
     }
   };
 
-  const handleEditTask = (index, newText) => {
+  const handleEditTask = (index, newText) =>{
     const updatedTasks = [...tasks];
     updatedTasks[index].text = newText;
-    setTasks(updatedTasks);
     setEditingIndex(null);
   };
 
