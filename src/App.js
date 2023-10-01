@@ -11,7 +11,7 @@ function App() {
         <TopNavbar/>
       </div>
       <header className="App-header">
-        <BrowserRouter>
+        <BrowserRouter basename="/to_do_list">
           <div className="w-full overflow-hidden">
             <Routes>
               <Route path="/" element={<Main />} />
