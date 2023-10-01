@@ -1,7 +1,7 @@
 {
   "name": "todolist",
   "version": "0.1.0",
-  "homepage": "https://jigovind556.github.io/react-gh-pages",
+  "homepage": "https://jigovind556.github.io/to_do_list",
   "private": false,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
