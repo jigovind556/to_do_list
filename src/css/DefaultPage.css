@@ -4,7 +4,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Use viewport height to make it full-screen */
+    height: 100vh;
     padding: 20px;
     text-align: center;
   }
@@ -20,18 +20,18 @@
   }
   
   .text-content h1 {
-    font-size: 36px; /* Increase the font size for a more prominent title */
-    margin-bottom: 20px; /* More spacing between elements */
+    font-size: 36px; 
+    margin-bottom: 20px;
   }
   
   .text-content p {
-    font-size: 20px; /* Larger font size for readability */
-    margin-bottom: 20px; /* More spacing between elements */
+    font-size: 20px; 
+    margin-bottom: 20px; 
   }
   
   .image-content img {
     max-width: 100%;
     height: auto;
-    max-height: 500px; /* Limit the image height for responsiveness */
+    max-height: 500px; 
   }
   

@@ -47,27 +47,26 @@
   .sort-popup div {
     cursor: pointer;
     padding: 5px 0;
-    font-size: 16px; /* Adjust font size for options */
+    font-size: 16px; 
   }
   
-  /* Media query for responsiveness */
   @media (max-width: 768px) {
     .top-navbar {
-      justify-content: space-between; /* Adjust alignment for smaller screens */
-      padding: 10px; /* Reduce padding for smaller screens */
+      justify-content: space-between; 
+      padding: 10px; 
     }
   
     .left-icons {
-      margin-right: auto; /* Push left icons to the left */
+      margin-right: auto; 
     }
   
     .right-icons {
       display: flex;
-      align-items: center; /* Center items vertically */
+      align-items: center; 
     }
   
     .icon-container {
-      margin-left: 10px; /* Add some space between icons and the sort dropdown */
+      margin-left: 10px;
     }
   }
   

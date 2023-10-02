@@ -1,65 +1,57 @@
-import React, { useState, useEffect } from 'react';
-import ListItem from './listItem'; // Make sure to provide the correct import path
+import React, { useState, useEffect, useRef } from 'react';
+import ListItem from './listItem';
 import "../../css/task-list.css";
 
-const TaskList = () => {
+const TaskList = ({ usersData }) => {
   const [tasks, setTasks] = useState([]);
   const [taskInput, setTaskInput] = useState('');
   const [editingIndex, setEditingIndex] = useState(null);
-
+  const [firstUpdate,setftupdt]=useState(true);
   useEffect(() => {
     loadTasksFromLocalStorage();
-  }, []);
+  }, [usersData]); // Load tasks when usersData changes (i.e., when a user logs in or out)
 
   useEffect(() => {
-    console.log("Task updated");
-    saveTasksToLocalStorage();
+    if (!firstUpdate){
+      console.log("Task updated");
+      saveTasksToLocalStorage();
+    }
+    else{
+      setftupdt(false);
+    }
   }, [tasks]);
 
   const loadTasksFromLocalStorage = () => {
-    const storedTasks = localStorage.getItem('tasks');
+    
+    const storedTasks = localStorage.getItem(`tasks-${usersData.email}`); // Use user's email to distinguish tasks
     console.log(storedTasks);
     if (storedTasks) {
-        // var oldTasks = [...tasks];
-
-        var updatedTasks=JSON.parse(storedTasks);
-        
-        setTasks([...tasks,...updatedTasks]);
-        
-      console.log("this is : "+tasks);
+      const updatedTasks = JSON.parse(storedTasks);
+      setTasks(updatedTasks);
     }
   };
 
-  // const loadTasksFromLocalStorage = () => {
-  //   const storedTasks = localStorage.getItem('tasks');
-  //   if (storedTasks) {
-  //     const updatedTasks = JSON.parse(storedTasks);
-  //     setTasks(updatedTasks);
-  //     console.log(tasks);
-  //   }
-  // };
-
   const saveTasksToLocalStorage = () => {
-       console.log(`saving tasks to local storage`);
-    localStorage.setItem('tasks', JSON.stringify(tasks));
+    console.log(`saving tasks to local storage`);
+    localStorage.setItem(`tasks-${usersData.email}`, JSON.stringify(tasks)); // Use user's email to distinguish tasks
   };
 
   const addTask = () => {
     if (taskInput.trim() !== '') {
       setTasks([...tasks, {
-         text: taskInput, 
-         completed: false ,
-         timeAdded: Date.now(),
-    }])
+        text: taskInput,
+        completed: false,
+        timeAdded: Date.now(),
+      }])
       setTaskInput('');
-      // saveTasksToLocalStorage();
     }
   };
 
-  const handleEditTask = (index, newText) =>{
+  const handleEditTask = (index, newText) => {
     const updatedTasks = [...tasks];
     updatedTasks[index].text = newText;
     setEditingIndex(null);
+    setTasks(updatedTasks);
   };
 
   const toggleCompleteTask = (index) => {

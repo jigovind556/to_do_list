@@ -25,8 +25,7 @@ function App() {
   }
   useEffect(() => {
     return async () => {
-            console.log("useEffect called for islogged");
-        console.log("true in islogged");
+          
         var d=await getCurrentUser();
         setuserData(d);
     };
@@ -45,12 +44,7 @@ function App() {
           </div>
           <div className="w-full overflow-hidden">
             <Routes>
-              <Route path="/" element={<Main islogged={islogged}/>} />
-              {/* Use ProtectedRoute to protect the dashboard route */}
-              {/* <ProtectedRoute
-                path="/dashboard"
-                element={<Dashboard />}
-              /> */}
+              <Route path="/" element={<Main islogged={islogged} usersData={usersData}/>} />
               <Route
                 path="/login"
                 element={

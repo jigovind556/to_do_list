@@ -1,7 +1,6 @@
-// Function to simulate user login
+
 export const login = (email, password) => {
-  // In a real application, you would typically send a request to a server for authentication.
-  // For this example, we'll use localStorage to store the user's login status and user data.
+
   const usersData = JSON.parse(localStorage.getItem('usersData')) || [];
   const user = usersData.find((u) => u.email === email && u.password === password);
 
@@ -16,8 +15,7 @@ export const login = (email, password) => {
 
 // Function to simulate user signup
 export const signup = (name, email, password) => {
-  // In a real application, you would typically send a request to a server to create a new user.
-  // For this example, we'll use localStorage to store user data.
+
   const usersData = JSON.parse(localStorage.getItem('usersData')) || [];
   const newUser = {
     name: name,
@@ -46,7 +44,7 @@ export const isAuthenticated = () => {
 // Function to get the current user's data
 export const getCurrentUser = async () => {
   const d=await localStorage.getItem('currentUser');
-  console.log("d"+d);
+  // console.log("d"+d);
   const user = JSON.parse(d);
   return user;
 };
