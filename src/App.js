@@ -45,7 +45,7 @@ function App() {
           </div>
           <div className="w-full overflow-hidden">
             <Routes>
-              <Route path="/" element={<Main />} />
+              <Route path="/" element={<Main islogged={islogged}/>} />
               {/* Use ProtectedRoute to protect the dashboard route */}
               {/* <ProtectedRoute
                 path="/dashboard"

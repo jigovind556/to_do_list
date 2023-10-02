@@ -1,0 +1,37 @@
+/* DefaultPage.css */
+
+.default-page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Use viewport height to make it full-screen */
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .text-content {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .image-content {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .text-content h1 {
+    font-size: 36px; /* Increase the font size for a more prominent title */
+    margin-bottom: 20px; /* More spacing between elements */
+  }
+  
+  .text-content p {
+    font-size: 20px; /* Larger font size for readability */
+    margin-bottom: 20px; /* More spacing between elements */
+  }
+  
+  .image-content img {
+    max-width: 100%;
+    height: auto;
+    max-height: 500px; /* Limit the image height for responsiveness */
+  }
+  

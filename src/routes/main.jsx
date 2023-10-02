@@ -2,11 +2,11 @@ import React from 'react';
 import DefaultPage from '../component/default/default';
 import ToDoList from '../component/listComponent/todolist';
 
-const Main = () => {
+const Main = ({islogged}) => {
   return (
     <div>
-      {/* <DefaultPage/> */}
-        <ToDoList/>
+      {(!islogged)?<DefaultPage/>:
+        <ToDoList/>}
     </div>
   );
 }
