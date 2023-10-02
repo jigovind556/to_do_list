@@ -7,49 +7,40 @@ import { useEffect, useState } from "react";
 import {
   login,
   signup,
-  isAuthenticated,
+  getCurrentUser,
   logout,
-} from "./component/Authentication/authfunctions.js"; // Import the auth functions
-
+} from "./component/Authentication/authfunctions.js"; 
 function App() {
-  const [islogged, setisloggedin] = useState(isAuthenticated()); // Initialize the user authentication state
+  const [islogged, setisloggedin] = useState(false);
+  const [usersData,setuserData] =useState();
 
   useEffect(() => {
     // Check if the user is already authenticated, and if so, redirect to the dashboard
-    isAuthenticated(setisloggedin);
+    checkAuth();
   }, []);
-  // Function to handle user login
-  const handleLogin = (email, password) => {
-    // Perform login logic, e.g., call the login function from authFunctions.js
-    login(email, password);
-    setisloggedin(true);
-  };
 
-  // Function to handle user signup
-  const handleSignup = (name, email, password) => {
-    // Perform signup logic, e.g., call the signup function from authFunctions.js
-    signup(name, email, password);
-    setisloggedin(true);
-  };
-
-  // Function to handle user logout
-  const handleLogout = () => {
-    // Perform logout logic, e.g., call the logout function from authFunctions.js
-    logout();
-    setisloggedin(false);
-  };
+  const checkAuth=async ()=>{
+    const val=await localStorage.getItem('isLoggedIn');
+    setisloggedin(val=== 'true');
+  }
+  useEffect(() => {
+    return async () => {
+            console.log("useEffect called for islogged");
+        console.log("true in islogged");
+        var d=await getCurrentUser();
+        setuserData(d);
+    };
+  }, [islogged]);
 
   return (
     <div className="App">
       <header className="App-header">
         <BrowserRouter basename="/to_do_list">
           <div className="App-navbar">
-            {/* Pass the login, signup, and logout functions as props */}
             <TopNavbar
-              islogged={islogged}
-              handleLogin={handleLogin}
-              handleSignup={handleSignup}
-              handleLogout={handleLogout}
+              isLogged={islogged}
+              checkAuth={checkAuth}
+              usersData={usersData}
             />
           </div>
           <div className="w-full overflow-hidden">
@@ -63,13 +54,18 @@ function App() {
               <Route
                 path="/login"
                 element={
-                  <Auth pgnum={"1"} handleLogin={handleLogin} />
+                  <Auth pgnum={"1"} 
+                  isLogged={islogged}
+              checkAuth={checkAuth} />
                 }
               />
               <Route
                 path="/signup"
                 element={
-                  <Auth pgnum={"2"} handleSignup={handleSignup} />
+                  <Auth pgnum={"2"} 
+                  isLogged={islogged}
+              checkAuth={checkAuth}
+                  />
                 }
               />
             </Routes>

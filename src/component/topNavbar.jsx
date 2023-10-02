@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import "../css/top-navbar.css";
 import { logout } from './Authentication/authfunctions';
 
-const TopNavbar = ({ isLogged }) => {
+const TopNavbar = ({usersData, isLogged ,checkAuth}) => {
   const [showSortOptions, setShowSortOptions] = useState(false);
   const navigate = useNavigate(); // Initialize the navigate function
 
@@ -23,6 +23,7 @@ const TopNavbar = ({ isLogged }) => {
     if (isLogged) {
       // Implement logout logic here
       logout();
+      checkAuth();
       console.log("Logging out...");
     } else {
       // Navigate to the signup page if the user is not logged in
@@ -36,7 +37,7 @@ const TopNavbar = ({ isLogged }) => {
         <span className="icon">
           <FaUser />
         </span>
-        <span className="user-name">Your Name</span>
+        <span className="user-name">{(isLogged && usersData!=null)?usersData.name:"To Do List"}</span>
       </div>
       <div className="right-icons">
         <div className='icon'>

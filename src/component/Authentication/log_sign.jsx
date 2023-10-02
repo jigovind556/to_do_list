@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "../../css/auth.css";
 import { login, signup, isAuthenticated } from "./authfunctions"; // Import the authFunctions
 
-const LogSign = (props) => {
+const LogSign = ({isLogged,checkAuth}) => {
   const navigate = useNavigate();
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
 
@@ -18,7 +18,8 @@ const LogSign = (props) => {
     const loggedIn = await login(email,password); // Replace with your actual login logic
     if (loggedIn) {
       // If login is successful, navigate to the dashboard
-      navigate("/dashboard");
+      checkAuth();
+      navigate("/");
     } else {
       // Handle login failure, display an error message, etc.
       console.log("Login failed");
@@ -34,6 +35,7 @@ const LogSign = (props) => {
     
     if (signedUp) {
       // If signup is successful, navigate to the dashboard
+      checkAuth();
       navigate("/");
     } else {
       // Handle signup failure, display an error message, etc.
