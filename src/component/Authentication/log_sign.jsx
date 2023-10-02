@@ -1,33 +1,48 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../css/auth.css";
-// import axios from "axios";
-// import server from "./apple";
+import { login, signup, isAuthenticated } from "./authfunctions"; // Import the authFunctions
 
-// const Auth = ({handleState}) => {
 const LogSign = (props) => {
   const navigate = useNavigate();
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
+
   const handleCheckboxClick = () => {
-    console.log(isCheckboxChecked);
     setIsCheckboxChecked(!isCheckboxChecked);
   };
-  
-  useEffect(() => {
-    return () => {
-        console.log(props.pgnum);
-        if(props.pgnum==='2'){
-            setIsCheckboxChecked(true);
 
-        }
-    };
-  }, []);
-  function login() {
-    console.log("login clicked");
-  }
-  function signup() {
-    console.log("signup clicked");
-  }
+  const handleLogin = async () => {
+    // Implement login using authFunctions
+    var email=document.getElementById('logEmail').value;
+    var password=document.getElementById('logPass').value;
+    const loggedIn = await login(email,password); // Replace with your actual login logic
+    if (loggedIn) {
+      // If login is successful, navigate to the dashboard
+      navigate("/dashboard");
+    } else {
+      // Handle login failure, display an error message, etc.
+      console.log("Login failed");
+    }
+  };
+
+  const handleSignup = async () => {
+    // Implement signup using authFunctions
+    var email=document.getElementById('signEmail').value;
+    var name=document.getElementById('signName').value;
+    var password=document.getElementById('signPass').value;
+    const signedUp = await signup(name,email,password); 
+    
+    if (signedUp) {
+      // If signup is successful, navigate to the dashboard
+      navigate("/");
+    } else {
+      // Handle signup failure, display an error message, etc.
+      console.log("Signup failed");
+    }
+  };
+
+
+
   return (
     <div>
       {/* This is the auth page. Please log in or sign up to access this content! */}
@@ -84,9 +99,9 @@ const LogSign = (props) => {
                             />
                             <i className="input-icon uil uil-lock-alt"></i>
                           </div>
-                          <a href="#" onClick={login} className="btn mt-4">
-                            submit
-                          </a>
+                          <button onClick={handleLogin} className="btn mt-4">
+                            Log In
+                          </button>
                           <p className="mb-0 mt-4 text-center">
                             <a href="#0" className="link">
                               Forgot your password?
@@ -132,9 +147,9 @@ const LogSign = (props) => {
                             />
                             <i className="input-icon uil uil-lock-alt"></i>
                           </div>
-                          <a href="#" onClick={signup} className="btn mt-4">
-                            submit
-                          </a>
+                          <button onClick={handleSignup} className="btn mt-4">
+                            Sign Up
+                          </button>
                         </div>
                       </div>
                     </div>

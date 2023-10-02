@@ -1,6 +1,8 @@
 /* top-navbar.css */
 .top-navbar {
     display: flex;
+    width: 100vw;
+    /* height:2rem; */
     justify-content: space-between;
     align-items: center;
     background-color: #090a31;
@@ -23,6 +25,7 @@
   
   .right-icons {
     display: flex;
+    justify-content: space-between;
   }
   
   .icon-container {

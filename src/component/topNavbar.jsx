@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { FaSort, FaUser } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import "../css/top-navbar.css";
+import { logout } from './Authentication/authfunctions';
 
-const TopNavbar = () => {
+const TopNavbar = ({ isLogged }) => {
   const [showSortOptions, setShowSortOptions] = useState(false);
+  const navigate = useNavigate(); // Initialize the navigate function
 
   const toggleSortOptions = () => {
     setShowSortOptions(!showSortOptions);
@@ -16,8 +19,19 @@ const TopNavbar = () => {
     setShowSortOptions(false);
   };
 
+  const handleAuthClick = () => {
+    if (isLogged) {
+      // Implement logout logic here
+      logout();
+      console.log("Logging out...");
+    } else {
+      // Navigate to the signup page if the user is not logged in
+      navigate('/login');
+    }
+  };
+
   return (
-    <nav className="top-navbar ">
+    <nav className="top-navbar">
       <div className="left-icons">
         <span className="icon">
           <FaUser />
@@ -25,6 +39,9 @@ const TopNavbar = () => {
         <span className="user-name">Your Name</span>
       </div>
       <div className="right-icons">
+        <div className='icon'>
+          <span onClick={()=>navigate("/")}>Home</span></div><br/>
+        
         <div className="icon-container" onMouseEnter={toggleSortOptions} onMouseLeave={toggleSortOptions}>
           <span className="icon">sort</span>
           {showSortOptions && (
@@ -36,7 +53,9 @@ const TopNavbar = () => {
             </div>
           )}
         </div>
-        <button className="login-button">Login/Signup</button>
+        <button onClick={handleAuthClick} className="login-button">
+          {isLogged ? "Logout" : "Login/Signup"}
+        </button>
       </div>
     </nav>
   );
