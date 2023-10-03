@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/to_do_list/static/css/main.e2ff52ef.css",
-    "main.js": "/to_do_list/static/js/main.0a4031cd.js",
+    "main.css": "/to_do_list/static/css/main.75985f50.css",
+    "main.js": "/to_do_list/static/js/main.52c5e087.js",
     "static/js/787.97a945da.chunk.js": "/to_do_list/static/js/787.97a945da.chunk.js",
     "static/media/todolisticon.png": "/to_do_list/static/media/todolisticon.67e4084a2f6156662403.png",
     "index.html": "/to_do_list/index.html",
-    "main.e2ff52ef.css.map": "/to_do_list/static/css/main.e2ff52ef.css.map",
-    "main.0a4031cd.js.map": "/to_do_list/static/js/main.0a4031cd.js.map",
+    "main.75985f50.css.map": "/to_do_list/static/css/main.75985f50.css.map",
+    "main.52c5e087.js.map": "/to_do_list/static/js/main.52c5e087.js.map",
     "787.97a945da.chunk.js.map": "/to_do_list/static/js/787.97a945da.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e2ff52ef.css",
-    "static/js/main.0a4031cd.js"
+    "static/css/main.75985f50.css",
+    "static/js/main.52c5e087.js"
   ]
 }
