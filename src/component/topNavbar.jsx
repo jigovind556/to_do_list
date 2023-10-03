@@ -43,7 +43,7 @@ const TopNavbar = ({usersData, isLogged ,checkAuth}) => {
         <div className='icon'>
           <span onClick={()=>navigate("/")}>Home</span></div><br/>
         
-        <div className="icon-container" onMouseEnter={toggleSortOptions} onMouseLeave={toggleSortOptions}>
+        {/* <div className="icon-container" onMouseEnter={toggleSortOptions} onMouseLeave={toggleSortOptions}>
           <span className="icon">sort</span>
           {showSortOptions && (
             <div className="sort-popup">
@@ -53,7 +53,7 @@ const TopNavbar = ({usersData, isLogged ,checkAuth}) => {
               <div onClick={() => handleSortOptionClick('Alphabetical')}>Alphabetically</div>
             </div>
           )}
-        </div>
+        </div> */}
         <button onClick={handleAuthClick} className="login-button">
           {isLogged ? "Logout" : "Login/Signup"}
         </button>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import ListItem from './listItem';
 import "../../css/task-list.css";
 
@@ -6,12 +6,18 @@ const TaskList = ({ usersData }) => {
   const [tasks, setTasks] = useState([]);
   const [taskInput, setTaskInput] = useState('');
   const [editingIndex, setEditingIndex] = useState(null);
+  const [filter, setFilter] = useState('all'); // 'all', 'active', 'completed'
+  const [sortBy, setSortBy] = useState('timeAdded'); // 'timeAdded', 'priority', 'dueDate'
+  const [sortOrder, setSortOrder] = useState('asc'); // 'asc', 'desc'
   const [firstUpdate,setftupdt]=useState(true);
+
   useEffect(() => {
     loadTasksFromLocalStorage();
   }, [usersData]); // Load tasks when usersData changes (i.e., when a user logs in or out)
 
   useEffect(() => {
+    // console.log("Task updated");
+    // saveTasksToLocalStorage();
     if (!firstUpdate){
       console.log("Task updated");
       saveTasksToLocalStorage();
@@ -22,7 +28,6 @@ const TaskList = ({ usersData }) => {
   }, [tasks]);
 
   const loadTasksFromLocalStorage = () => {
-    
     const storedTasks = localStorage.getItem(`tasks-${usersData.email}`); // Use user's email to distinguish tasks
     console.log(storedTasks);
     if (storedTasks) {
@@ -42,6 +47,8 @@ const TaskList = ({ usersData }) => {
         text: taskInput,
         completed: false,
         timeAdded: Date.now(),
+        dueDate: null, // Add due date property
+        priority: 'medium', // Add priority property ('high', 'medium', 'low')
       }])
       setTaskInput('');
     }
@@ -66,6 +73,29 @@ const TaskList = ({ usersData }) => {
     setTasks(updatedTasks);
   };
 
+  const filterTasks = (task) => {
+    if (filter === 'all') {
+      return true;
+    } else if (filter === 'active') {
+      return !task.completed;
+    } else if (filter === 'completed') {
+      return task.completed;
+    }
+    return true;
+  };
+
+  const sortTasks = (taskA, taskB) => {
+    if (sortBy === 'timeAdded') {
+      return sortOrder === 'asc' ? taskA.timeAdded - taskB.timeAdded : taskB.timeAdded - taskA.timeAdded;
+    } else if (sortBy === 'priority') {
+      const priorityOrder = { 'high': 3, 'medium': 2, 'low': 1 };
+      return sortOrder === 'asc' ? priorityOrder[taskA.priority] - priorityOrder[taskB.priority] : priorityOrder[taskB.priority] - priorityOrder[taskA.priority];
+    } else if (sortBy === 'dueDate') {
+      return sortOrder === 'asc' ? (taskA.dueDate || 0) - (taskB.dueDate || 0) : (taskB.dueDate || 0) - (taskA.dueDate || 0);
+    }
+    return 0;
+  };
+
   return (
     <div>
       <h1>To-Do List</h1>
@@ -78,17 +108,45 @@ const TaskList = ({ usersData }) => {
         />
         <button onClick={addTask}>Add Task</button>
       </div>
+      <div className="filter-options">
+        <label>
+          Filter by:
+          <select value={filter} onChange={(e) => setFilter(e.target.value)}>
+            <option value="all">All</option>
+            <option value="active">Active</option>
+            <option value="completed">Completed</option>
+          </select>
+        </label>
+        <label>
+          Sort by:
+          <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+            <option value="timeAdded">Time Added</option>
+            <option value="priority">Priority</option>
+            <option value="dueDate">Due Date</option>
+          </select>
+        </label>
+        <label>
+          Sort Order:
+          <select value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
+            <option value="asc">Ascending</option>
+            <option value="desc">Descending</option>
+          </select>
+        </label>
+      </div>
       <ul className="list-unstyled">
-        {tasks.map((task, index) => (
-          <li key={index}>
-            <ListItem
-              task={task}
-              onEdit={(newText) => handleEditTask(index, newText)}
-              onToggleComplete={() => toggleCompleteTask(index)}
-              onDelete={() => deleteTask(index)}
-            />
-          </li>
-        ))}
+        {tasks
+          .filter(filterTasks)
+          .sort(sortTasks)
+          .map((task, index) => (
+            <li key={index}>
+              <ListItem
+                task={task}
+                onEdit={(newText) => handleEditTask(index, newText)}
+                onToggleComplete={() => toggleCompleteTask(index)}
+                onDelete={() => deleteTask(index)}
+              />
+            </li>
+          ))}
       </ul>
     </div>
   );

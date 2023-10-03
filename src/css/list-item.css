@@ -7,26 +7,25 @@
     margin-bottom: 10px;
     background-color: #062e5e;
     border-radius: 5px;
-  }
-  
-  
-  .task-text {
+}
+
+.task-text {
     flex-grow: 1;
     font-size: 16px;
-  }
-  
-  .task-text.completed {
+}
+
+.task-text.completed {
     text-decoration: line-through;
     color: #888;
-  }
-  
-  .actions {
+}
+
+.actions {
     display: flex;
     align-items: center;
-  }
-  
-  .edit-button,
-  .delete-button {
+}
+
+.edit-button,
+.delete-button {
     background-color: #4caf50;
     color: #fff;
     border: none;
@@ -35,10 +34,9 @@
     cursor: pointer;
     border-radius: 3px;
     transition: background-color 0.2s;
-  }
-  
-  .edit-button:hover,
-  .delete-button:hover {
+}
+
+.edit-button:hover,
+.delete-button:hover {
     background-color: #45a049;
-  }
-  
+}
