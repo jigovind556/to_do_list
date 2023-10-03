@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import "../../css/list-item.css";
 
 const ListItem = ({ task, onEdit, onToggleComplete, onDelete }) => {
@@ -6,7 +6,7 @@ const ListItem = ({ task, onEdit, onToggleComplete, onDelete }) => {
   const [editedText, setEditedText] = useState(task.text);
 
   const handleEditClick = () => {
-    if (editedText.trim() !== '') {
+    if (editedText.trim() !== "") {
       onEdit(editedText);
     }
     setToggle(false);
@@ -24,32 +24,51 @@ const ListItem = ({ task, onEdit, onToggleComplete, onDelete }) => {
     setEditedText(e.target.value);
   };
 
+  const getPriorityColor = () => {
+    console.log(task.text+task.priority+(task.priority===2));
+    // return "orange";
+    // switch (val) {
+    switch (task.priority) {
+      case 1:
+        return "green";
+      case 2:
+        return "orange";
+      case 3:
+        return "red";
+      default:
+        return "#062e5e"; // Default color
+    }
+  };
+
   return (
-    <div className="list-item">
+    <div className="list-item" style={{ backgroundColor: getPriorityColor() }}>
       <input
         type="checkbox"
-        className='list-item-checkbox'
+        className="list-item-checkbox"
         style={{ position: "static" }}
         checked={task.completed}
         onChange={() => onToggleComplete(task.id)}
       />
-      {toggle ? (
-        <div>
+
+      <div>
+        {toggle ? (
           <input
-            type='text'
-            id='editText'
+            type="text"
+            id="editText"
             value={editedText}
             onChange={handleTextChange}
           />
-          <button className="edit-button" onClick={handleEditClick}>
-            Set
-          </button>
-        </div>
-      ) : (
-        <span className={`task-text ${task.completed ? 'completed' : ''}`}>
-          {task.text}
-        </span>
-      )}
+        ) : (
+          <div>
+            <span className={`task-text ${task.completed ? "completed" : ""}`}>
+              {task.text}
+            </span>
+            <span className="due-date">Due: {task.dueDate}</span>
+          </div>
+        )}
+        
+      </div>
+      
       <div className="actions">
         {toggle ? (
           <button className="edit-button" onClick={handleEditClick}>

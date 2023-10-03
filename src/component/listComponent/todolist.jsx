@@ -9,21 +9,24 @@ const TaskList = ({ usersData }) => {
   const [filter, setFilter] = useState('all'); // 'all', 'active', 'completed'
   const [sortBy, setSortBy] = useState('timeAdded'); // 'timeAdded', 'priority', 'dueDate'
   const [sortOrder, setSortOrder] = useState('asc'); // 'asc', 'desc'
-  const [firstUpdate,setftupdt]=useState(true);
-
+  const [priority, setPriority] = useState(2); // Default priority
+  const [firstUpdate, setFirstUpdate] = useState(true);
+  const getDefaultDueDate = () => {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1); // Set to tomorrow
+    return tomorrow.toISOString().substr(0, 10); // Format as YYYY-MM-DD
+  };
+  const [dueDate, setDueDate] = useState(getDefaultDueDate()); // Default due date
   useEffect(() => {
     loadTasksFromLocalStorage();
   }, [usersData]); // Load tasks when usersData changes (i.e., when a user logs in or out)
 
   useEffect(() => {
-    // console.log("Task updated");
-    // saveTasksToLocalStorage();
-    if (!firstUpdate){
+    if (!firstUpdate) {
       console.log("Task updated");
       saveTasksToLocalStorage();
-    }
-    else{
-      setftupdt(false);
+    } else {
+      setFirstUpdate(false);
     }
   }, [tasks]);
 
@@ -43,14 +46,20 @@ const TaskList = ({ usersData }) => {
 
   const addTask = () => {
     if (taskInput.trim() !== '') {
-      setTasks([...tasks, {
-        text: taskInput,
-        completed: false,
-        timeAdded: Date.now(),
-        dueDate: null, // Add due date property
-        priority: 'medium', // Add priority property ('high', 'medium', 'low')
-      }])
+      setTasks([
+        ...tasks,
+        {
+          text: taskInput,
+          completed: false,
+          timeAdded: Date.now(),
+          dueDate: dueDate, // Set due date
+          priority: priority, // Set priority
+        },
+      ]);
       setTaskInput('');
+      // Reset priority and due date
+      setPriority(2);
+      setDueDate(getDefaultDueDate());
     }
   };
 
@@ -88,13 +97,15 @@ const TaskList = ({ usersData }) => {
     if (sortBy === 'timeAdded') {
       return sortOrder === 'asc' ? taskA.timeAdded - taskB.timeAdded : taskB.timeAdded - taskA.timeAdded;
     } else if (sortBy === 'priority') {
-      const priorityOrder = { 'high': 3, 'medium': 2, 'low': 1 };
-      return sortOrder === 'asc' ? priorityOrder[taskA.priority] - priorityOrder[taskB.priority] : priorityOrder[taskB.priority] - priorityOrder[taskA.priority];
+      // const priorityOrder = { 'high':3, 'medium': 2, 'low': 1 };
+      return sortOrder === 'asc' ? taskA.priority - taskB.priority : taskB.priority - taskA.priority;
     } else if (sortBy === 'dueDate') {
       return sortOrder === 'asc' ? (taskA.dueDate || 0) - (taskB.dueDate || 0) : (taskB.dueDate || 0) - (taskA.dueDate || 0);
     }
     return 0;
   };
+
+ 
 
   return (
     <div>
@@ -105,6 +116,16 @@ const TaskList = ({ usersData }) => {
           placeholder="Enter a new task"
           value={taskInput}
           onChange={(e) => setTaskInput(e.target.value)}
+        />
+        <select value={priority} onChange={(e) =>{setPriority(parseInt(e.target.value))}}>
+          <option value={3}>High</option>
+          <option value={2}>Medium</option>
+          <option value={1}>Low</option>
+        </select>
+        <input
+          type="date"
+          value={dueDate}
+          onChange={(e) => setDueDate(e.target.value)}
         />
         <button onClick={addTask}>Add Task</button>
       </div>
