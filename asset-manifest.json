@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/to_do_list/static/css/main.75985f50.css",
-    "main.js": "/to_do_list/static/js/main.52c5e087.js",
+    "main.js": "/to_do_list/static/js/main.a9bca673.js",
     "static/js/787.97a945da.chunk.js": "/to_do_list/static/js/787.97a945da.chunk.js",
     "static/media/todolisticon.png": "/to_do_list/static/media/todolisticon.67e4084a2f6156662403.png",
     "index.html": "/to_do_list/index.html",
     "main.75985f50.css.map": "/to_do_list/static/css/main.75985f50.css.map",
-    "main.52c5e087.js.map": "/to_do_list/static/js/main.52c5e087.js.map",
+    "main.a9bca673.js.map": "/to_do_list/static/js/main.a9bca673.js.map",
     "787.97a945da.chunk.js.map": "/to_do_list/static/js/787.97a945da.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.75985f50.css",
-    "static/js/main.52c5e087.js"
+    "static/js/main.a9bca673.js"
   ]
 }
