@@ -31,6 +31,22 @@ function App() {
     };
   }, [islogged]);
 
+  function customAlert(message) {
+    const alertDiv = document.createElement('div');
+    alertDiv.classList.add('custom-alert');
+    alertDiv.textContent = message;
+    
+    // Append the custom alert to the body
+    document.body.appendChild(alertDiv);
+    
+    // Remove the custom alert after a certain time (e.g., 3 seconds)
+    setTimeout(() => {
+        alertDiv.remove();
+    }, 3000);
+}
+
+// Replace the default alert function with your custom function
+window.alert = customAlert;
   return (
     <div className="App">
       <header className="App-header">

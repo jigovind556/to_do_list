@@ -25,9 +25,7 @@ const ListItem = ({ task, onEdit, onToggleComplete, onDelete }) => {
   };
 
   const getPriorityColor = () => {
-    console.log(task.text+task.priority+(task.priority===2));
-    // return "orange";
-    // switch (val) {
+    
     switch (task.priority) {
       case 1:
         return "green";
@@ -36,7 +34,7 @@ const ListItem = ({ task, onEdit, onToggleComplete, onDelete }) => {
       case 3:
         return "red";
       default:
-        return "#062e5e"; // Default color
+        return "#062e5e"; 
     }
   };
 
