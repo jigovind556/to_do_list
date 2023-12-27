@@ -24,7 +24,7 @@ const TopNavbar = ({usersData, isLogged ,checkAuth}) => {
       // Implement logout logic here
       logout();
       checkAuth();
-      console.log("Logging out...");
+      console.log("Logging out....");
     } else {
       // Navigate to the signup page if the user is not logged in
       navigate('/login');
